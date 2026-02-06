@@ -21,12 +21,25 @@ void createLinkedList(int value)
         tail = newnode;
     }
 }
-void insertNodeAtBeginning(value)
+void insertNodeAtBeginning(int value)
 {
     struct node *newnode = (struct node *)malloc(sizeof(struct node));
     newnode->data = value;
     newnode->next = head;
     head = newnode;
+}
+void insertAnyPos(int pos, int value){
+    struct node* newnode = (struct node*) malloc(sizeof(struct node));
+    struct node *temp1, *temp = head;
+    newnode->data = value;
+    int count = 1;
+    while(count < pos-1){
+        temp = temp->next;
+        count++;
+    }
+    temp1 = temp->next;
+    temp->next = newnode;
+    newnode->next = temp1;
 }
 void deleteAtBeg()
 {
@@ -34,10 +47,12 @@ void deleteAtBeg()
 }
 void deleteAtLast()
 {
-    struct node* temp = head;
-    while(temp->next != tail){
-        temp = tepm->next;
+    struct node *temp = head;
+    while (temp->next != tail)
+    {
+        temp = temp->next;
     }
+    temp->next = NULL;
 }
 void display()
 {
@@ -49,16 +64,16 @@ void display()
     }
     printf("Null");
 }
-int main()
-{
+int main(){
     createLinkedList(10);
     createLinkedList(20);
     createLinkedList(35);
     createLinkedList(50);
     insertNodeAtBeginning(5);
     insertNodeAtBeginning(1);
+    insertAnyPos(6, 45);
     deleteAtBeg();
     deleteAtBeg();
+    deleteAtLast();
     display();
 }
-
