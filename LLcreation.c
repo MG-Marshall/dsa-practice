@@ -45,6 +45,17 @@ void deleteAtBeg()
 {
     head = head->next;
 }
+void deleteAnyPos(int pos)
+{
+    struct node* temp = head, *temp1;
+    int count = 1;
+    while (count < pos - 1){
+        temp = temp->next;
+        count++;
+    }
+    temp1 = temp->next;
+    temp->next = temp1->next;
+}
 void deleteAtLast()
 {
     struct node *temp = head;
@@ -74,6 +85,7 @@ int main(){
     insertAnyPos(6, 45);
     deleteAtBeg();
     deleteAtBeg();
+    deleteAnyPos(4);
     deleteAtLast();
     display();
 }
