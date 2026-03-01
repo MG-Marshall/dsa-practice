@@ -6,9 +6,13 @@ struct node
     struct node *next;
 };
 struct node *head = NULL, *tail = NULL;
-void createLinkedList(int value)
+void createLinkedList()
 {
-    struct node *newnode = (struct node *)malloc(sizeof(struct node));
+    int value;
+    printf("Enter value to add the list : ");
+    scanf("%d", &value);
+    struct node *newnode = (struct node*) malloc(sizeof(struct node));
+    
     newnode->data = value;
     newnode->next = NULL;
     if (head == NULL)
@@ -21,16 +25,28 @@ void createLinkedList(int value)
         tail = newnode;
     }
 }
-void insertNodeAtBeginning(int value)
+void insertNodeAtBeginning()
 {
-    struct node *newnode = (struct node *)malloc(sizeof(struct node));
+    int value;
+    printf("Enter value to add at beginning : ");
+    scanf("%d", &value);
+    struct node *newnode = (struct node*) malloc(sizeof(struct node));
+
     newnode->data = value;
     newnode->next = head;
     head = newnode;
 }
-void insertAnyPos(int pos, int value){
+void insertAnyPos()
+{
+    int value, pos;
+    printf("Enter position to add : ");
+    scanf("%d", &pos);
+    printf("Enter the value : ");
+    scanf("%d", &value);
+
     struct node* newnode = (struct node*) malloc(sizeof(struct node));
     struct node *temp1, *temp = head;
+
     newnode->data = value;
     int count = 1;
     while(count < pos-1){
@@ -43,11 +59,17 @@ void insertAnyPos(int pos, int value){
 }
 void deleteAtBeg()
 {
+    struct node *temp = head;
     head = head->next;
+    free(temp);
 }
-void deleteAnyPos(int pos)
+void deleteAnyPos()
 {
+    int pos;
+    printf("Enter position to delete : ");
+    scanf("%d", &pos);
     struct node* temp = head, *temp1;
+
     int count = 1;
     while (count < pos - 1){
         temp = temp->next;
@@ -65,6 +87,21 @@ void deleteAtLast()
     }
     temp->next = NULL;
 }
+void reverseList()
+{
+    struct node *prev = NULL;
+    struct node *temp = head;
+    struct node *next = NULL;
+
+    while (temp != NULL){
+        next = temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = next;
+    }
+
+    head = prev;
+}
 void display()
 {
     struct node *temp = head;
@@ -75,17 +112,59 @@ void display()
     }
     printf("Null");
 }
-int main(){
-    createLinkedList(10);
-    createLinkedList(20);
-    createLinkedList(35);
-    createLinkedList(50);
-    insertNodeAtBeginning(5);
-    insertNodeAtBeginning(1);
-    insertAnyPos(6, 45);
-    deleteAtBeg();
-    deleteAtBeg();
-    deleteAnyPos(4);
-    deleteAtLast();
-    display();
+int main()
+{
+    int choice;
+
+    while (1)
+    {
+        printf("\n\n===== LINKED LIST MENU =====\n");
+        printf("1. Create / Add node at end\n");
+        printf("2. Insert node at beginning\n");
+        printf("3. Insert node at any position\n");
+        printf("4. Delete node at beginning\n");
+        printf("5. Delete node at any position\n");
+        printf("6. Delete node at last\n");
+        printf("7. Display list\n");
+        printf("8. Reverse list\n");
+        printf("9. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+        case 1:
+            createLinkedList();
+            break;
+        case 2:
+            insertNodeAtBeginning();
+            break;
+        case 3:
+            insertAnyPos();
+            break;
+        case 4:
+            deleteAtBeg();
+            break;
+        case 5:
+            deleteAnyPos();
+            break;
+        case 6:
+            deleteAtLast();
+            break;
+        case 7:
+            display();
+            break;
+        case 8:
+            reverseList();
+            printf("List reversed successfully.\n");
+            break;
+        case 9:
+            printf("Exiting program...\n");
+            exit(0);
+        default:
+            printf("Invalid choice! Try again.\n");
+        }
+    }
+
+    return 0;
 }
